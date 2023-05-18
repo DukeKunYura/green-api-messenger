@@ -1,33 +1,58 @@
-import React from 'react';
-import axios from "axios"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogged, setIdInstance, setApiTokenInstance } from '../redux/masterSlice';
+
 
 export default function GateScreen() {
-    async function green() {
+    const [inputId, setInputId] = useState("");
+    const [inputToken, setInputToken] = useState("");
 
-        axios.defaults.headers = {
-            'Content-Type': 'application/json'
+    const dispatch = useDispatch();
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        if (name === "inputId") {
+            setInputId(value);
+        } else {
+            setInputToken(value);
         }
+    };
 
-        const sendMessage = async (idInstance, apiTokenInstance, chatId, message) => {
-            const response = await axios.post(
-                `https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`,
-                {
-                    chatId,
-                    message
-                }
-            );
-
-            return response.data;
-        };
-
-        sendMessage("1101822105", "4bc49f091caa40a0bc8c8e6c895e0dc55dfc2155aad5401db2", "79036360935@c.us", "message to you!")
-
+    const handleSubmit = () => {
+        if (inputId != "" && inputToken != "") {
+            dispatch(setIdInstance(inputId));
+            dispatch(setApiTokenInstance(inputToken));
+            dispatch(setLogged(true))
+        }
     }
+
 
     return (
         <>
             <div>Gate</div>
-            <button onClick={() => { green() }}>SendMessage</button>
+            <form id="myForm" onSubmit={handleSubmit}>
+                <label htmlFor="inputId">
+                    Input ID:
+                    <input
+                        type="text"
+                        name="inputId"
+                        id="inputId"
+                        value={inputId}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label htmlFor="inputToken">
+                    Input Token:
+                    <input
+                        type="text"
+                        name="inputToken"
+                        id="inputToken"
+                        value={inputToken}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
         </>
 
     )

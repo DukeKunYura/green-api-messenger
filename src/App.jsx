@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import './App.css';
+import { useSelector } from 'react-redux';
 import GateScreen from './components/GateScreen';
 import ChatScreen from './components/ChatScreen';
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const state = useSelector((state) => state.master);
 
     return (
         <>
-            {!loggedIn && <GateScreen />}
-            {loggedIn && <ChatScreen />}
+            {!state.logged && <GateScreen />}
+            {state.logged && <ChatScreen />}
         </>
 
     )
