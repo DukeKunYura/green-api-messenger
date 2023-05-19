@@ -1,22 +1,25 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import axios from "axios";
-import { useDispatch, useSelector } from 'react-redux';
-import { getNotification, removeNotification, postMessage, getMessage } from '../api/api';
-import { setMessages } from '../redux/masterSlice';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getNotification, removeNotification, postMessage } from '../api/api';
+import List from './List';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Chat(props) {
     const { activeChat } = props;
+
     const state = useSelector((state) => state.master);
-    const [chatId, setchatId] = useState("79036360935@c.us");
-    const [message, setMessage] = useState("получилось");
-    const [count, setCount] = useState(0);
+    const [message, setMessage] = useState("");
     const [list, setList] = useState([]);
 
-    const dispatch = useDispatch();
-
-
-    const handlerSend = () => {
-        postMessage(state.idInstance, state.apiTokenInstance, { chatId, message });
+    const handlerSend = (number) => {
+        postMessage(state.idInstance, state.apiTokenInstance, number, message);
+        setList(prev => [...prev, {
+            text: message,
+            id: uuidv4(),
+            timestamp: Date.now(),
+            author: "you"
+        }]);
+        setMessage("");
     };
 
     const getData = () => {
@@ -24,42 +27,46 @@ export default function Chat(props) {
             if (res) {
                 removeNotification(state.idInstance, state.apiTokenInstance, res.receiptId)
                 if (res.body.typeWebhook === "outgoingMessageReceived" &&
-                    res.body.senderData.chatId === chatId &&
+                    res.body.senderData.chatId === `7${activeChat}@c.us` &&
                     res.body.messageData.typeMessage === 'textMessage') {
                     if (!list.some(item => item.id === res.body.idMessage)) {
                         setList(prev => [...prev, {
                             text: res.body.messageData.textMessageData.textMessage,
-                            id: res.body.idMessage
+                            id: res.body.idMessage,
+                            timestamp: res.body.timestamp,
+                            author: res.body.senderData.chatId
                         }]);
-                        dispatch(setMessages({ chatId: res.body.senderData.chatId, chat: list }))
-
-
                     }
                 }
             }
         })
-
     };
 
-    //     sendMessage("1101822105", "4bc49f091caa40a0bc8c8e6c895e0dc55dfc2155aad5401db2", "79036360935@c.us", "message to you!")
-
+    useEffect(() => {
+        setList([]);
+        setMessage("");
+    }, [activeChat]);
 
     useEffect(() => {
-        const interval = setInterval(() => getData(), 5200);
+        const interval = setInterval(() => getData(), 5500);
         return () => {
             clearInterval(interval)
         }
-    }, [getData]);
+    }, [getData, activeChat]);
 
     return (
         <div>
             {activeChat}
-            <button onClick={handlerSend}>send</button>
-            {/* <button onClick={handlerGet}>get</button> */}
-            {/* <button onClick={green}>gren</button> */}
-            {/* <button onClick={greenAll}>grenAllFunc</button> */}
-
-
+            {list.length !== 0 && <List list={list} />}
+            <form className='Form' onSubmit={evt => { evt.preventDefault(); handlerSend(activeChat) }}>
+                <input
+                    className='Input'
+                    placeholder="Введите сообщение"
+                    maxLength={10}
+                    value={message}
+                    onChange={(e) => { setMessage(e.target.value) }} />
+                <button type='submit'>Отправить</button>
+            </form>
         </div>
     )
 }

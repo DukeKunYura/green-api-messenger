@@ -10,6 +10,7 @@ export default function GateScreen() {
     const dispatch = useDispatch();
 
     const handleInputChange = (event) => {
+        event.preventDefault();
         const { name, value } = event.target;
         if (name === "inputId") {
             setInputId(value);
