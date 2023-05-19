@@ -56,7 +56,7 @@ export const getNotification = async (idInstance, apiTokenInstance) => {
     return response.data;
 };
 
-export const removeNotification = async (idInstance, apiTokenInstance, chatId, message) => {
+export const removeNotification = async (idInstance, apiTokenInstance, receiptId) => {
     const response = await axios.delete(
         `https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`
     );
