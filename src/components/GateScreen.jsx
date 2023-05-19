@@ -29,32 +29,37 @@ export default function GateScreen() {
 
 
     return (
-        <>
-            <div>Gate</div>
-            <form id="myForm" onSubmit={handleSubmit}>
-                <label htmlFor="inputId">
-                    Input ID:
-                    <input
-                        type="text"
-                        name="inputId"
-                        id="inputId"
-                        value={inputId}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label htmlFor="inputToken">
-                    Input Token:
-                    <input
-                        type="text"
-                        name="inputToken"
-                        id="inputToken"
-                        value={inputToken}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-        </>
+        <div className="box">
+            <div>
+                <h4 className="title is-4">Gate</h4>
+                <form id="myForm" onSubmit={handleSubmit}>
+                    <label className="label">Input ID:</label>
+                    <div className="control">
+                        <input className="input"
+                            type="text"
+                            name="inputId"
+                            id="inputId"
+                            value={inputId}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <br />
+                    <label className="label">Input Token:</label>
+                    <div className="control">
+                        <input className="input"
+                            type="text"
+                            name="inputToken"
+                            id="inputToken"
+                            value={inputToken}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <br />
+                    <button className="button" type="submit">Submit</button>
+                </form>
+            </div>
+
+        </div>
 
     )
 }

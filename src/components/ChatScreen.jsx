@@ -21,15 +21,19 @@ export default function ChatScreen() {
             <div>
                 <Contacts contacts={contacts} setActiveChat={setActiveChat} />
                 {isActiveChat && <button onClick={() => setIsActiveChat(false)}>Новый чат</button>}
-                {!isActiveChat && <form className='Form' onSubmit={evt => { evt.preventDefault(); handleSubmit() }}>
-                    <input
-                        className='Input'
-                        placeholder="Введите номер 10 цифр"
-                        maxLength={10}
-                        value={newContact}
-                        onChange={(e) => { setNewContact(e.target.value) }} />
-                    <button type='submit'>Начать чат</button>
-                </form>}
+                {!isActiveChat &&
+                    <div>
+                        <form className='Form' onSubmit={evt => { evt.preventDefault(); handleSubmit() }}>
+                            <input
+                                className='Input'
+                                placeholder="Введите номер 10 цифр"
+                                maxLength={10}
+                                value={newContact}
+                                onChange={(e) => { setNewContact(e.target.value) }} />
+                            <button type='submit'>Начать чат</button>
+                        </form>
+                    </div>}
+
             </div>
             <div>
                 {isActiveChat && <Chat activeChat={activeChat} />}
