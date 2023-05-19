@@ -5,7 +5,7 @@ const initialState = {
     apiTokenInstance: "",
     contacts: [],
     logged: false,
-    chat: []
+    messages: {}
 };
 
 export const masterSlice = createSlice({
@@ -24,8 +24,9 @@ export const masterSlice = createSlice({
         setLogged: (state, action) => {
             state.logged = action.payload
         },
-        setChat: (state, action) => {
-            state.chat = [action.payload, ...state.chat]
+        setMessages: (state, action) => {
+            state.messages[action.payload.chatId] = action.payload.chat;
+            console.log(action.payload);
         }
     }
 }
@@ -37,6 +38,6 @@ export const {
     setApiTokenInstance,
     setContacts,
     setLogged,
-    setChat } = masterSlice.actions;
+    setMessages } = masterSlice.actions;
 
 export default masterSlice.reducer
