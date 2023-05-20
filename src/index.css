@@ -1,6 +1,14 @@
-body {
+body,
+html {
   margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: aqua;
 }

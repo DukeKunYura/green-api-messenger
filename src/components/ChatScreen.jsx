@@ -18,7 +18,7 @@ export default function ChatScreen() {
 
     return (
         <>
-            <div>
+            <div className='contacts'>
                 <Contacts contacts={contacts} setActiveChat={setActiveChat} />
                 {isActiveChat && <button onClick={() => setIsActiveChat(false)}>Новый чат</button>}
                 {!isActiveChat &&
@@ -35,7 +35,7 @@ export default function ChatScreen() {
                     </div>}
 
             </div>
-            <div>
+            <div className='chatField'>
                 {isActiveChat && <Chat activeChat={activeChat} />}
             </div>
         </>

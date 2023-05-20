@@ -15,9 +15,9 @@ export default function List(props) {
     }, [props]);
 
     return (
-        <>
+        <div className='list'>
             {messages.map((item) => <Message item={item} key={item.id} />)}
-        </>
+        </div>
 
     )
 }

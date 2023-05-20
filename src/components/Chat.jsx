@@ -55,9 +55,14 @@ export default function Chat(props) {
     }, [getData, activeChat]);
 
     return (
-        <div>
-            {activeChat}
-            {list.length !== 0 && <List list={list} />}
+        <div className='chat'>
+            <div className='titleChat'>
+                {activeChat}
+            </div>
+            <div className='messages'>
+                {list.length !== 0 && <List list={list} />}
+            </div>
+
             <form className='Form' onSubmit={evt => { evt.preventDefault(); handlerSend(activeChat) }}>
                 <input
                     className='Input'
