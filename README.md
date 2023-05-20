@@ -1,4 +1,6 @@
 ### green-api-messenger
+
+An application for exchanging messages with WhatsApp contacts via the green-api.com service.
  
 To launch the application сlone repository and run commands:
 
