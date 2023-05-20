@@ -10,8 +10,10 @@ export default function Contacts(props) {
 
     return (
         <>
-            <div>Contacts</div>
-            {list.map((item) => <div onClick={() => { setActiveChat(item) }} key={item}>{item}</div>)}
+            <h4 className="title4">Contacts</h4>
+            {list.map((item) => <div className="contact" key={item}>
+                <button className="button is-success" onClick={() => { setActiveChat(item) }}>{item}</button>
+                <br /></div>)}
         </>
 
     )

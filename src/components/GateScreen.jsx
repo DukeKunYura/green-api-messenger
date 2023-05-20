@@ -29,13 +29,14 @@ export default function GateScreen() {
 
 
     return (
-        <div className="box">
+        <div className="contacts">
             <div>
-                <h4 className="title is-4">Gate</h4>
+                <h4 className="title4">Gate</h4>
                 <form id="myForm" onSubmit={handleSubmit}>
-                    <label className="label">Input ID:</label>
+                    <label className="title5">Input ID:</label>
                     <div className="control">
                         <input className="input"
+                            placeholder='ID'
                             type="text"
                             name="inputId"
                             id="inputId"
@@ -44,9 +45,10 @@ export default function GateScreen() {
                         />
                     </div>
                     <br />
-                    <label className="label">Input Token:</label>
+                    <label className="title5">Input Token:</label>
                     <div className="control">
                         <input className="input"
+                            placeholder='Token'
                             type="text"
                             name="inputToken"
                             id="inputToken"

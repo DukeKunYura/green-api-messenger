@@ -20,17 +20,20 @@ export default function ChatScreen() {
         <>
             <div className='contacts'>
                 <Contacts contacts={contacts} setActiveChat={setActiveChat} />
-                {isActiveChat && <button onClick={() => setIsActiveChat(false)}>Новый чат</button>}
+                {isActiveChat && <button className="button is-light" onClick={() => setIsActiveChat(false)}>New chat</button>}
                 {!isActiveChat &&
-                    <div>
+                    <div className='block'>
                         <form className='Form' onSubmit={evt => { evt.preventDefault(); handleSubmit() }}>
-                            <input
-                                className='Input'
-                                placeholder="Введите номер 10 цифр"
-                                maxLength={10}
-                                value={newContact}
-                                onChange={(e) => { setNewContact(e.target.value) }} />
-                            <button type='submit'>Начать чат</button>
+                            <div className="blockInput">
+                                <input
+                                    className='input'
+                                    placeholder="input number 10 digits"
+                                    maxLength={10}
+                                    minLength={10}
+                                    value={newContact}
+                                    onChange={(e) => { setNewContact(e.target.value) }} />
+                            </div>
+                            <button className="button is-light" type='submit'>Start chat</button>
                         </form>
                     </div>}
 

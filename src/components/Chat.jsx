@@ -62,16 +62,16 @@ export default function Chat(props) {
             <div className='messages'>
                 {list.length !== 0 && <List list={list} />}
             </div>
-
-            <form className='Form' onSubmit={evt => { evt.preventDefault(); handlerSend(activeChat) }}>
-                <input
-                    className='Input'
-                    placeholder="Введите сообщение"
-                    maxLength={10}
-                    value={message}
-                    onChange={(e) => { setMessage(e.target.value) }} />
-                <button type='submit'>Отправить</button>
-            </form>
+            <div className='Form'>
+                <form className="field has-addons" onSubmit={evt => { evt.preventDefault(); handlerSend(activeChat) }}>
+                    <input className="input"
+                        rows="2"
+                        placeholder="Enter message"
+                        value={message}
+                        onChange={(e) => { setMessage(e.target.value) }} />
+                    <button className="button is-primary" type='submit'>Send</button>
+                </form>
+            </div>
         </div>
     )
 }
